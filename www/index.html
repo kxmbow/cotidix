@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        
+        <meta name="format-detection" content="telephone=no">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.1.9/vue.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.js"></script>
+        <script src="luxon.js"></script>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+        <link rel="stylesheet" href="animate.css">
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="swipe.css">
+        <script type="text/javascript" src="cordova.js"></script>
+        <title>Focused</title>
+
+    </head>
+    
+    <body>
+        <body>
+            <div class="container-fluid">
+                <div class="row" style="height:141px;">
+                    <div class="card menu-top">
+                        <img class="card-img cover" src="https://www.freevector.com/uploads/vector/preview/19911/Free_Sunset_Background_Vector.png" alt="">
+                        <div class="card-img-overlay">
+                            <b><h5 class="card-title text" id="date"></h5></b>
+                           <b><h5 class="text">Time Left, <span class="text" id="tLeft" ></span></h5></b>
+                        </div>
+                    </div>
+                    
+                </div>
+        
+               <!-- <div style="padding-bottom:104px"></div> -->
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="active" role="tabpanel" aria-labelledby="active-tab">
+                        <div class="row">
+                            <div class="col-12" style="padding-left:0px;padding-right:0px;">
+                                <div id="toAppend">
+                                    <div v-for="post in postList">
+                                        <div class="item-list todo  animated fadeIn">
+                                            <div class="item">
+                                                <button class="action todelete btest" v-bind:value="post.id"><i class="material-icons">delete</i></button>
+                                                <div class="row">
+                                                    <div class="col-9 test1" v-bind:id="post.id" v-bind:value="post.content" v-bind:class="post.completed">{{post.content}}</div>
+                                                    <div class="col-3"><button class="squareTEST" v-bind:class="post.priority" v-bind:value="post.priority" ></button></div>
+                                                </div>
+                                                <button class="action check ctest" v-bind:value="post.id"><i class="material-icons">check</i></button>
+                                            </div>
+                                        </div>
+                                    </div>    
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <button id="testDEL">Test</button> -->
+                    </div>
+        
+                    <div class="tab-pane fade show" id="history" role="tabpanel" aria-labelledby="history-tab">
+                        <div class="row">
+                            <div class="col-12" style="padding-left:0px;padding-right:0px;">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4"></div>
+                                            <div class="col-4"><b><p class="text-center">History</p></b></div>
+                                            <div class="col-4"></div>
+                                        </div>
+                                        
+                                        <hr>
+
+                                        <div id="toAppendHistory">
+                                            <div v-for="post in postList">
+                                                <div class="row">
+                                                    <div class="col-4">{{post.c2}}</div>
+                                                    <div class="col-4" v-bind:class="post.status">{{post.status}}</div>
+                                                    <div class="col-4">{{post.date}}</div>
+                                                </div>
+                                                <br>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+        
+                    <div class="tab-pane fade show" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="row">
+                            <div class="col-12" style="padding-left:0px;padding-right:0px;">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4"></div>
+                                            <div class="col-4"><b><p class="text-center">Priorities</p></b></div>
+                                            <div class="col-4"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-4"><p>Low</p></div>
+                                            <div class="col-4">Notify Every</div>
+                                            <div class="col-4">
+                                                <select class="custom-select hourSelect" id="lowHval">
+                                                    <option selected id="val01"  class="hour" >Hours</option>
+                                                    <option>0</option>
+                                                    <option>2</option>
+                                                    <option>4</option>
+                                                    <option>6</option>
+                                                    <option>8</option>
+                                                </select>
+                                                <select class="custom-select minuteSelect" id="lowMval">
+                                                    <option selected id="val02" class="minute">Minutes</option>
+                                                    <option>0</option>
+                                                    <option>30</option>
+                                                    <option>45</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr style="background-color:#2196F3">
+                                        <div class="row">
+                                            <div class="col-4"><p>Medium</p></div>
+                                            <div class="col-4">Notify Every</div>
+                                            <div class="col-4">
+                                                <select class="custom-select hourSelect" id="mediumHval">
+                                                    <option selected id="val03" class="hour">Hours</option>
+                                                    <option>0</option>
+                                                    <option>2</option>
+                                                    <option>4</option>
+                                                    <option>6</option>
+                                                    <option>8</option>
+                                                </select>
+                                                <select class="custom-select minuteSelect" id="mediumMval">
+                                                    <option selected id="val04" class="minute">Minutes</option>
+                                                    <option>0</option>
+                                                    <option>30</option>
+                                                    <option>45</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr style="background-color:#FFC107">
+                                        <div class="row">
+                                            <div class="col-4"><p>High</p></div>
+                                            <div class="col-4">Notify Every</div>
+                                            <div class="col-4">
+                                                <select class="custom-select hourSelect" id="highHval">
+                                                    <option selected id="val05"  class="hour">Hours</option>
+                                                    <option>0</option>
+                                                    <option>2</option>
+                                                    <option>4</option>
+                                                    <option>6</option>
+                                                    <option>8</option>
+                                                </select>
+                                                <select class="custom-select minuteSelect" id="highMval">
+                                                    <option selected id="val06" class="minute">Minutes</option>
+                                                    <option>0</option>
+                                                    <option>30</option>
+                                                    <option>45</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <hr style="background-color:#F44336">
+                                    </div>
+                                </div>
+                                <div style="padding-bottom:10px;"></div>
+        
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-4"></div>
+                                            <div class="col-4"><b><p class="text-center">Time</p></b></div>
+                                            <div class="col-4"></div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-4"><p>Display</p></div>
+                                            <div class="col-4">Time Left in</div>
+                                            <div class="col-4">
+                                                <select class="custom-select" id="optionTime">
+                                                    <option selected id="val07">Hours</option>
+                                                    <option>Hours</option>
+                                                    <option>Minutes</option>
+                                                    <option>Seconds</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="padding-top:10px;"></div>
+                                <button class="btn btn-danger text-center" id="saveButton" type="button">Save</button>
+                                <div style="padding-bottom:70px;"></div>
+                                <div >dd</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                
+                
+                </div>
+        
+        
+                <div class="row">
+                    <div class="card menu nav nav-tabs">
+                        <div class="card-body" style="padding: 0px;">
+                            <div class="row">
+                                <div class="col-4  text-center active" style="background-color: #E91E63; " id="active-tab" data-toggle="tab" href="#active" role="tab" aria-controls="active" aria-selected="true">
+                                    <i id="active-icon" class="material-icons" style="color: white">notifications_active</i>
+                                    <p id="active-text" class="menu-text" style="color: white">Active</p>
+                                </div>
+                                <div class="col-4 text-center" id="history-tab" data-toggle="tab" href="#history" role="tab" aria-controls="history" aria-selected="false">
+                                    <i id="history-icon" class="material-icons">history</i>
+                                    <p id="history-text" class="menu-text">History</p>
+                                </div>
+                                <div class="col-4 text-center" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                                    <i id="settings-icon" class="material-icons">settings</i>
+                                    <p id="settings-text" class="menu-text">Settings</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="row" id="buttonRow">
+                    <i class="material-icons" id="addButton" data-toggle="modal" data-target="#addgoal">add_circle</i>
+                </div>
+            
+                <!-- The Modal -->
+                <div class="modal show fade" id="addgoal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal Header -->
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text" id="basic-addon1">Goal</span>
+                                    </div>
+                                    <input type="text" class="form-control"  id="goal">
+                                </div>
+        
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <label class="input-group-text" for="priority">Priority</label>
+                                    </div>
+                                    <select class="custom-select" id="priority">
+                                        <!-- <option selected>Choose...</option> -->
+                                        <option value="low">Low</option>
+                                        <option value="medium">Medium</option>
+                                        <option value="high">High</option>
+                                    </select>
+                                </div>
+        
+                                <!-- <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text" id="">Time</span>
+                                    </div>
+                                    <select class="custom-select" id="hourSelect">
+                                        <option selected>Choose...</option>
+                                    </select>
+                                    <select class="custom-select" id="minuteSelect">
+                                        <option selected>Choose...</option>
+                                    </select>
+                                </div> -->
+                            </div>
+                            
+                            <!-- Modal footer -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal" id="add">Add</button>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+            
+            </div>
+            
+            
+                      
+        
+            <script src="script.js"></script>
+            <script type="text/javascript" src="jquery-listswipe.js"></script>
+            <script src="swipe.js"></script>
+        </body>
+        </html>
+        
+        
+    </body>
+</html>

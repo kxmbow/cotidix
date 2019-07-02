@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <title>Testing</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <button id="test">Click me</button>
+    <button id="test2">Click here</button>
+
+    <script>
+        var request = indexedDB.open("Database");
+
+
+        request.onupgradeneeded = function() {
+            // The database did not previously exist, so create object stores and indexes.
+            var db = request.result;
+            var store = db.createObjectStore("reminders", {keyPath: "id"});
+            var index = store.createIndex("reminders", "body");
+            
+            // Populate with initial data.
+            store.put({body: "Buy milk", id: 1});
+            store.put({body: "Create app", id: 2});
+            store.put({body: "Finish animation",id: 3});
+        };
+
+        request.onsuccess = function() {
+            db = request.result;
+
+        };
+        
+        
+
+        $("#test").click(function(){
+            console.log($("#input").val());
+            console.log("Clicked!");
+            add($("#input").val());
+            
+        })
+        $("#test2").click(function(){
+            console.log(" 2 Clicked!");
+            read();
+        })
+
+        function add(param) {
+            var request = db.transaction(["reminders"], "readwrite")
+            .objectStore("reminders")
+            .add({ body: param,id: 6});
+            
+            // request.onsuccess = function(event) {
+            //     alert("Data has been added to your database.");
+            // };
+            
+            request.onerror = function(event) {
+                alert("Unable to add data\r\nPrasad is already exist in your database! ");
+            }
+        }
+
+        function read() {
+            var transaction = db.transaction(["reminders"]);
+            var objectStore = transaction.objectStore("reminders");
+            var request = objectStore.getAll();
+   
+            request.onerror = function(event) {
+                alert("Unable to retrieve data from database!");
+            };
+   
+            request.onsuccess = function(event) {
+      
+                if(request.result) {
+                    console.log(request.result);
+                    for(i=0;i<request.result.length;i++){
+                       console.log(request.result[i].body); 
+                    }
+
+                } else {
+                    alert("No entry"); 
+
+                }
+            };
+            
+        }
+       
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+html,body{
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: whitesmoke;
+}
+.todo{
+    border-radius: 0px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 7px 0 rgba(0, 0, 0, 0.19);
+}
+.square{
+    width: 20px;
+    height: 20px;
+    margin: auto;
+    border-radius: 20%;
+    background-color: red;
+}
+.squareTEST{
+    position: absolute;
+    right: 20px;
+    width: 20px;
+    height: 20px;
+    
+    border-radius: 20%;
+    border-color: rgba(255, 255, 255, 0) !important;
+    
+}
+.circle{
+    width: 20px;
+    height: 20px;
+    margin: 0 auto;
+    border: 2px solid black;
+    border-radius: 20%;
+
+}
+.menu{
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    border-radius: 0px;
+
+}
+.menu-text{
+    position: relative;
+    top: 5px;
+}
+.material-icons{
+    position: relative;
+    top: 10px;
+}
+#addButton{
+    font-size: 72px;
+    color: #E91E63;
+
+}
+#buttonRow{
+    position: fixed;
+    bottom: 95px;
+    right: 35px;
+}
+.cover{
+    height: 140px;
+    width: 100%;
+}
+.text{
+    color: white;
+}
+.low{
+    background-color: #2196F3
+}
+.medium{
+    background-color: #FFC107
+}
+.high{
+    background-color: #F44336;
+}
+.true{
+    text-decoration: line-through;
+}
+
+
+.card-custom{
+    border: 0px;
+    border-radius: 0px;
+    border-radius: 0px;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 7px 0 rgba(0, 0, 0, 0.19);
+}
+.nav{
+    flex-wrap: unset !important;
+}
+
+#settings{
+    height: 90vh;
+}
+.menu-top{
+    position: fixed;
+    top: 0px;
+    width: 100%;
+    height: 105px;
+    border-radius: 0px;
+    z-index: 1;
+}
+#saveButton{
+    background-color: #E91E63;
+    color: white;
+    
+    width: 100%;
+    /* height: 15px; */
+}
+.Achieved{
+    color: green;
+}
+.Failed{
+    color: red;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+    var request = indexedDB.open("library", 3); // Request version 3.
+
+request.onupgradeneeded = function(event) {
+  var db = request.result;
+  if (event.oldVersion < 1) {
+    // Version 1 is the first version of the database.
+    var store = db.createObjectStore("books", {keyPath: "isbn"});
+    var titleIndex = store.createIndex("by_title", "title", {unique: true});
+    var authorIndex = store.createIndex("by_author", "author");
+  }
+  if (event.oldVersion < 2) {
+    // Version 2 introduces a new index of books by year.
+    var bookStore = request.transaction.objectStore("books");
+    var yearIndex = bookStore.createIndex("by_year", "year");
+  }
+  if (event.oldVersion < 3) {
+    // Version 3 introduces a new object store for magazines with two indexes.
+    var magazines = db.createObjectStore("magazines");
+    var publisherIndex = magazines.createIndex("by_publisher", "publisher");
+    var frequencyIndex = magazines.createIndex("by_frequency", "frequency");
+  }
+};
+
+request.onsuccess = function() {
+  db = request.result; // db.version will be 3.
+};    
+    </script>
+</body>
+</html>
